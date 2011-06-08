@@ -1,7 +1,5 @@
 window.app = {};
 
-// RELEASE STUFF
-
 window.Release = Backbone.Model.extend({
   defaults: { name: 'Untitled Release' }
 });
@@ -14,8 +12,9 @@ window.ReleaseView = Backbone.View.extend({
   className : 'release',
 
   events: {
-    'keypress .title' : 'updateOnEnter',
-    'blur     .title' : 'update'
+    'keypress .title'  : 'updateOnEnter',
+    'blur     .title'  : 'update',
+    'click    .footer' : 'addFeature'
   },
 
   initialize: function() {
@@ -30,21 +29,17 @@ window.ReleaseView = Backbone.View.extend({
 
   render: function() {
     $(this.el).html(this.template(this.model.toJSON()));
-    this.input = $(this.el).find('.title');          
+    this.input = $(this.el).find('.title');
     return this;
   },
 
-  updateOnEnter: function(e) {
-    if(e.keyCode == 13) this.update();
-  },
+  updateOnEnter: function(e) { if(e.keyCode == 13) this.update(); },
 
-  update: function() {
-    this.model.set({ name: this.input.val() });
-  }
+  update: function() { this.model.set({ name: this.input.val() }); },
+
+  addFeature: function() { console.log('Add Feature'); }
 });
 
-
-// FEATURE STUFF
 
 window.Feature = Backbone.Model.extend({
   defaults: { name: 'Untitled Feature' }
@@ -69,6 +64,7 @@ window.AppView = Backbone.View.extend({
 
     app.releaseList.add(release);
     $('#releases').append(element);
+    releaseView.input.focus();
 
     this.positionReleases();
   },
@@ -86,6 +82,7 @@ window.AppView = Backbone.View.extend({
     });
   }
 });
+
 
 $(function(){
   $.extend(jQuery.easing,{
