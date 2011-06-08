@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://ajax.cdnjs.com/ajax/libs/underscore.js/1.1.6/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://ajax.cdnjs.com/ajax/libs/backbone.js/0.3.3/backbone-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="add_release">+</div>
+      <div id="icebox">
+        <div class="features">
+          <div class="feature">This is where the feature name goes</div>
+          <div class="feature">Awesome feature here</div>
+          <div class="feature">Hooba Joob</div>
+          <div class="feature">This is where the feature name goes</div>
+        </div>
+        <div class="footer">add feature</div>
+      </div> <!-- /#icebox -->
+      <div id="releases">
+        <div class="release">
+          <input type="text" value="June" class="title">
+          <div class="features">
+            <div class="feature">Plan features</div>
+            <div class="feature">Breakdown and export to tracker</div>
+            <div class="feature">Grouping features</div>
+          </div>
+          <div class="footer">add feature</div>
+        </div> <!-- /.release -->
+      </div> <!-- /#releases -->
+    </div><!-- /#wrapper -->
+    <script id="release_template" type="text/template">
+      <input type="text" value="<%= name %>" class="title">
+      <div class="features"></div>
+      <div class="footer">add feature</div>
+    </script>
+  </body>
+</html>
