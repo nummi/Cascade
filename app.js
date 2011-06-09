@@ -80,41 +80,6 @@ window.FeatureList = Backbone.Collection.extend({
 });
 
 
-window.AppView = Backbone.View.extend({
-  el: $('#wrapper'),
-
-  initialize: function() {
-    _.bindAll(this, 'addRelease');
-  },
-
-  addRelease: function() {
-    var release      = new Release()
-    ,   releaseView  = new ReleaseView({model: release})
-    ,   element      = $(releaseView.render().el)
-    ;
-
-    app.releaseList.add(release);
-    $('#releases').append(element);
-    releaseView.input.focus();
-
-    this.positionReleases();
-  },
-
-  positionReleases: function() {
-    var releases     = $(' #releases .release')
-    ,   releaseCount = releases.length
-    ,   width        = releases.first().outerWidth(true)
-    ;
-
-    releases.each(function(i, release) {
-      var left = (i == 0 ? '0' : (width * i) + 'px');
-
-      $(release).animate({ left: left }, 300, 'easeInOutExpo');
-    });
-  }
-});
-
-
 $(function(){
   $.extend(jQuery.easing,{
     easeInOutExpo: function (x, t, b, c, d) {
@@ -128,6 +93,47 @@ $(function(){
   Backbone.sync = function(method, model, success, error){ success(); };
 
   app.releaseList = new ReleaseList();
+
+  $('#icebox').hover(function() {
+    $(this).addClass('hover');
+  }, function() {
+    $(this).removeClass('hover');
+  });
+
+
+  window.AppView = Backbone.View.extend({
+    el: $('#wrapper'),
+
+    initialize: function() {
+      _.bindAll(this, 'addRelease');
+    },
+
+    addRelease: function() {
+      var release      = new Release()
+      ,   releaseView  = new ReleaseView({model: release})
+      ,   element      = $(releaseView.render().el)
+      ;
+
+      app.releaseList.add(release);
+      $('#releases').append(element);
+      releaseView.input.focus();
+
+      this.positionReleases();
+    },
+
+    positionReleases: function() {
+      var $releases     = $(' #releases .release')
+      ,   releaseCount  = $releases.length
+      ,   width         = $releases.first().outerWidth(true)
+      ;
+
+      $releases.each(function(i, release) {
+        var left = (i == 0 ? '0' : (width * i) + 'px');
+
+        $(release).animate({ left: left }, 300, 'easeInOutExpo');
+      });
+    }
+  });
   app.masterView  = new AppView();
 
   $('#add_release').click(app.masterView.addRelease);

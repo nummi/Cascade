@@ -5,7 +5,7 @@
   right      : 0;
   bottom     : 0;
   left       : 0;
-  background : #f4f4f4;
+  background : #D6DDE5;
 }
 
 #add_release {
@@ -27,51 +27,78 @@
 #icebox {
   overflow : auto;
   position : absolute;
-  top      : 20px;
+  top      : 0;
   bottom   : 0;
+  padding  : 0 10px 0 0;
   left     : 10px;
-  width    : 210px;
+  width    : 215px;
 }
+
+#icebox .features::-webkit-scrollbar                        { width: 8px; height: 8px; }
+#icebox .features::-webkit-scrollbar-button:start:decrement,
+#icebox .features::-webkit-scrollbar-button:end:increment   { display: block; width: 10px; height: 10px; background-color: transparent; }
+#icebox .features::-webkit-scrollbar-track:enabled          { background-color: transparent; }
+#icebox .features::-webkit-scrollbar-thumb:vertical,
+#icebox .features::-webkit-scrollbar-thumb:horizontal       { width: 30px; background-color: rgba(0, 0, 0, 0.25); -webkit-border-radius: 5px; }
+#icebox .features.hover::-webkit-scrollbar-thumb:horizontal,
+#icebox .features.hover::-webkit-scrollbar-thumb:vertical   { background-color: rgba(0, 0, 0, 0.3);  }
 
 #icebox .features {
   overflow : auto;
   position : absolute;
   top      : 0;
   right    : 0;
-  bottom   : 40px;
+  bottom   : 30px;
   left     : 0;
+  padding  : 5px 5px 0 0;
 }
 
 #icebox .footer {
   position    : absolute;
   bottom      : 0;
   left        : 0;
-  width       : 100%;
+  width       : 98%;
   height      : 30px;
   line-height : 30px;
-  color       : #fff;
+  color       : #445980;
   font-size   : 14px;
   font-weight : bold;
   text-align  : center;
-  text-shadow : 0 -1px 0 rgba(0,0,0, 0.5);
+  text-shadow : 0 1px 0 #fff;
   cursor      : default;
-  background  : #999;
+  background  : #A0B9CF;
   background-image: -webkit-gradient(
       linear,
       left bottom,
       left top,
-      color-stop(1, rgb(181,181,181)),
-      color-stop(0, rgb(79,79,79))
+      color-stop(1, #ACC7DE),
+      color-stop(0, #91A8BC)
   );
   -webkit-user-select : none;
+  -webkit-border-radius: 5px 5px 0 0;
+  -webkit-box-shadow: 0 -1px 0 rgba(255,255,255, 0.3);
+}
+
+#icebox .footer:active {
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, #ACC7DE),
+      color-stop(1, #91A8BC)
+  );
+  -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0, 0.2);
 }
 
 #icebox .feature {
   margin-bottom : 10px;
-  border        : 1px solid #999;
+  border        : 1px solid rgba(0,0,0, 0.25);
   padding       : 5px;
   font-size     : 12px;
+  background    : rgba(255,255,255, 0.6);
+  cursor        : move;
   -webkit-border-radius: 4px;
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255, 0.7);
 }
 
 #releases {
@@ -82,14 +109,14 @@
   right      : 40px;
   bottom     : 0;
   left       : 240px;
-  background : #e6e6e6;
+  background : #eee;
 }
 
 .release {
   position     : absolute;
   top          : 0;
   bottom       : 0;
-  left         : 0;
+  left         : -200px;
   width        : 200px;
   margin-right : 5px;
   padding      : 10px;
@@ -148,10 +175,10 @@
 
 .release .features::-webkit-scrollbar                        { width: 8px; height: 8px; }
 .release .features::-webkit-scrollbar-button:start:decrement,
-.release .features::-webkit-scrollbar-button:end:increment   { display: block; width: 10px; height: 10px; background-color: #aaa; }
-.release .features::-webkit-scrollbar-track:enabled          { background-color: #aaa; }
+.release .features::-webkit-scrollbar-button:end:increment   { display: block; width: 10px; height: 10px; background-color: transparent; }
+.release .features::-webkit-scrollbar-track:enabled          { background-color: transparent; }
 .release .features::-webkit-scrollbar-thumb:vertical,
-.release .features::-webkit-scrollbar-thumb:horizontal       { width: 30px; background-color: rgba(0, 0, 0, 0.25); }
+.release .features::-webkit-scrollbar-thumb:horizontal       { width: 30px; background-color: rgba(0, 0, 0, 0.25); -webkit-border-radius: 5px; }
 .release .features.hover::-webkit-scrollbar-thumb:horizontal,
 .release .features.hover::-webkit-scrollbar-thumb:vertical   { background-color: rgba(0, 0, 0, 0.3); }
 
