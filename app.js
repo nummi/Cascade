@@ -1,7 +1,10 @@
 window.app = {};
 
 window.Release = Backbone.Model.extend({
-  defaults: { name: 'Untitled Release' }
+  defaults   : { name: 'Untitled Release' },
+  initialize : function() {
+    this.features = new FeatureList();
+  }
 });
 
 window.ReleaseList = Backbone.Collection.extend({
@@ -18,7 +21,7 @@ window.ReleaseView = Backbone.View.extend({
   },
 
   initialize: function() {
-    _.bindAll(this, 'render', 'update', 'updateOnEnter');
+    _.bindAll(this, 'render', 'update', 'updateOnEnter', 'addFeature');
 
     this.template   = _.template($('#release_template').html());
     this.model.view = this;
@@ -33,11 +36,18 @@ window.ReleaseView = Backbone.View.extend({
     return this;
   },
 
-  updateOnEnter: function(e) { if(e.keyCode == 13) this.update(); },
+  updateOnEnter : function(e) { if(e.keyCode == 13) this.update(); },
+  update        : function()  { this.model.set({ name: this.input.val() }); },
 
-  update: function() { this.model.set({ name: this.input.val() }); },
+  addFeature: function() {
+    var feature     = new Feature()
+    ,   featureView = new FeatureView({model: feature})
+    ;
 
-  addFeature: function() { console.log('Add Feature'); }
+    this.model.features.add(feature);
+
+    $(this.el).find('.features').append(featureView.render().el);
+  }
 });
 
 
@@ -45,9 +55,30 @@ window.Feature = Backbone.Model.extend({
   defaults: { name: 'Untitled Feature' }
 });
 
-window.FeatureList = Backbone.Collection.extend({
-  model: app.Feature
+window.FeatureView = Backbone.View.extend({
+  className: 'feature',
+
+  initialize: function() {
+    _.bindAll(this, 'render');
+
+    this.template  = _.template($('#feature_template').html());
+    this.model.view = this;
+    this.model.bind('change', this.render);
+
+    this.render();
+  },
+
+  render: function() {
+    $(this.el).html(this.template(this.model.toJSON()));
+    return this;
+  }
+
 });
+
+window.FeatureList = Backbone.Collection.extend({
+  model: Feature
+});
+
 
 window.AppView = Backbone.View.extend({
   el: $('#wrapper'),
