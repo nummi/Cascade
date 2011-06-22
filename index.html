@@ -14,46 +14,18 @@
 
       <div id="icebox">
         <div class="features">
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
-          <div class="feature" draggable="true">Awesome feature here</div>
-          <div class="feature" draggable="true">Hooba Joob</div>
-          <div class="feature" draggable="true">This is where the feature name goes</div>
+          <div class="feature" draggable="true">
+            This is where the feature name goes
+            <div class="delete_feature"></div>
+          </div>
+          <div class="feature" draggable="true">
+            Awesome feature here
+            <div class="delete_feature"></div>
+          </div>
+          <div class="feature" draggable="true">
+            Hooba Joob
+            <div class="delete_feature"></div>
+          </div>
         </div>
         <div class="footer">Add Feature</div>
       </div> <!-- /#icebox -->
@@ -69,7 +41,8 @@
     </script>
 
     <script id="feature_template" type="text/template">
-      <%= name %>
+      <textarea><%= name %></textarea>
+      <div class="delete_feature"></div>
     </script>
   </body>
 </html>

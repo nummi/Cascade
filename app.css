@@ -1,4 +1,5 @@
 * { margin: 0; padding: 0; font-family: helvetica, arial, sans-serif; }
+
 #wrapper {
   position   : absolute;
   top        : 0;
@@ -67,16 +68,16 @@
   text-shadow : 0 1px 0 #fff;
   cursor      : default;
   background  : #A0B9CF;
-  background-image: -webkit-gradient(
+  background  : -webkit-gradient(
       linear,
       left bottom,
       left top,
       color-stop(1, #ACC7DE),
       color-stop(0, #91A8BC)
   );
-  -webkit-user-select : none;
-  -webkit-border-radius: 5px 5px 0 0;
-  -webkit-box-shadow: 0 -1px 0 rgba(255,255,255, 0.3);
+  -webkit-user-select   : none;
+  -webkit-border-radius : 5px 5px 0 0;
+  -webkit-box-shadow    : 0 -1px 0 rgba(255,255,255, 0.3);
 }
 
 #icebox .footer:active {
@@ -90,16 +91,33 @@
   -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0, 0.2);
 }
 
+.delete_feature {
+  opacity    : 0;
+  position   : absolute;
+  top        : 2px;
+  right      : 2px;
+  bottom     : 2px;
+  width      : 20px;
+  cursor     : pointer;
+  background : url(images/close.png) no-repeat 4px 50%;
+  -webkit-transition    : all 100ms linear;
+  -webkit-border-radius : 3px;
+}
+
+
 #icebox .feature {
+  position      : relative;
   margin-bottom : 10px;
   border        : 1px solid rgba(0,0,0, 0.25);
   padding       : 5px;
   font-size     : 12px;
   background    : rgba(255,255,255, 0.6);
   cursor        : move;
-  -webkit-border-radius: 4px;
-  -webkit-box-shadow: 0 1px 0 rgba(255,255,255, 0.7);
+  -webkit-border-radius : 4px;
+  -webkit-box-shadow    : 0 1px 0 rgba(255,255,255, 0.7);
 }
+
+#icebox .feature:hover .delete_feature { opacity : 1; }
 
 #releases {
   overflow   : hidden;
@@ -118,7 +136,7 @@
   bottom       : 0;
   left         : -200px;
   width        : 200px;
-  margin-right : 5px;
+  margin-left  : 10px;
   padding      : 10px;
 }
 
@@ -136,7 +154,7 @@
   font-weight : bold;
   text-align  : center;
   text-shadow : 0 -1px 0 rgba(0,0,0, 0.5);
-  background-image: -webkit-gradient(
+  background  : -webkit-gradient(
       linear,
       left bottom,
       left top,
@@ -147,19 +165,27 @@
 }
 
 .release .footer {
-  top    : auto;
-  bottom : 0;
-  cursor : default;
-  -webkit-user-select : none;
-}
-
-.release .footer:active {
-  background-image: -webkit-gradient(
+  top        : auto;
+  bottom     : 0;
+  cursor     : default;
+  background : -webkit-gradient(
       linear,
       left bottom,
       left top,
-      color-stop(0, rgb(181,181,181)),
-      color-stop(1, rgb(79,79,79))
+      color-stop(1, rgb(200,200,200)),
+      color-stop(0, rgb(140,140,140))
+  );
+  -webkit-user-select   : none;
+  -webkit-border-radius : 5px 5px 0 0;
+}
+
+.release .footer:active {
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0, rgb(200,200,200)),
+    color-stop(1, rgb(140,140,140))
   );
 }
 
@@ -183,7 +209,28 @@
 .release .features.hover::-webkit-scrollbar-thumb:vertical   { background-color: rgba(0, 0, 0, 0.3); }
 
 #releases .feature {
-  margin-bottom : 1px;
+  position      : relative;
+  height        : 30px;
   border-bottom : 1px dashed #bbb;
-  padding       : 10px 5px;
+  cursor        : move;
+}
+
+#releases .feature textarea {
+  outline     : none;
+  position    : absolute;
+  top         : 0;
+  left        : 0;
+  width       : 100%;
+  height      : 30px;
+  border      : 0;
+  line-height : 30px;
+  font-size   : 13px;
+  background  : transparent;
+  z-index     : 1;
+  -webkit-appearance: none;
+}
+
+#releases .feature:hover .delete_feature {
+  opacity : 1;
+  z-index : 2;
 }

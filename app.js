@@ -3,11 +3,11 @@ window.app = {};
 window.Release = Backbone.Model.extend({
   defaults   : { name: 'Untitled Release' },
   initialize : function() {
-    this.features = new FeatureList();
+    this.features = new FeatureCollection();
   }
 });
 
-window.ReleaseList = Backbone.Collection.extend({
+window.ReleaseCollection = Backbone.Collection.extend({
   model: Release
 });
 
@@ -25,7 +25,6 @@ window.ReleaseView = Backbone.View.extend({
 
     this.template   = _.template($('#release_template').html());
     this.model.view = this;
-    this.model.bind('change', this.render);
 
     this.render();
   },
@@ -36,15 +35,23 @@ window.ReleaseView = Backbone.View.extend({
     return this;
   },
 
-  updateOnEnter : function(e) { if(e.keyCode == 13) this.update(); },
-  update        : function()  { this.model.set({ name: this.input.val() }); },
-
-  addFeature: function() {
-    var feature     = new Feature()
-    ,   featureView = new FeatureView({model: feature})
+  updateOnEnter : function(e) { if(e.keyCode == 13) this.input.blur(); },
+  update        : function(e) {
+    var previousValue = this.model.get('name')
+    ,   newValue      = this.input.val()
     ;
 
-    this.model.features.add(feature);
+    if(newValue == '' || newValue == previousValue) {
+      this.input.val(this.model.get('name'));
+      return;
+    }
+
+    this.model.set({ name: newValue });
+  },
+
+  addFeature: function() {
+    var feature     = this.model.features.create({})
+    ,   featureView = new FeatureView({model: feature})
 
     $(this.el).find('.features').append(featureView.render().el);
   }
@@ -52,14 +59,18 @@ window.ReleaseView = Backbone.View.extend({
 
 
 window.Feature = Backbone.Model.extend({
-  defaults: { name: 'Untitled Feature' }
+  defaults: { name: 'Untitled Feature' },
 });
 
 window.FeatureView = Backbone.View.extend({
   className: 'feature',
 
+  events: {
+    'click .delete_feature' : 'eradicate',
+  },
+
   initialize: function() {
-    _.bindAll(this, 'render');
+    _.bindAll(this, 'render', 'eradicate');
 
     this.template  = _.template($('#feature_template').html());
     this.model.view = this;
@@ -69,13 +80,21 @@ window.FeatureView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html(this.template(this.model.toJSON()));
+    $(this.el).html(this.template(this.model.toJSON()))
+              .attr('draggable', true);
     return this;
-  }
+  },
 
+  eradicate: function() {
+    var self = this;
+    $(this.el).slideUp(100, function() {
+      self.remove();
+      self.model.destroy();
+    });
+  }
 });
 
-window.FeatureList = Backbone.Collection.extend({
+window.FeatureCollection = Backbone.Collection.extend({
   model: Feature
 });
 
@@ -92,8 +111,6 @@ $(function(){
 
   Backbone.sync = function(method, model, success, error){ success(); };
 
-  app.releaseList = new ReleaseList();
-
   $('#icebox').hover(function() {
     $(this).addClass('hover');
   }, function() {
@@ -101,40 +118,40 @@ $(function(){
   });
 
 
-  window.AppView = Backbone.View.extend({
-    el: $('#wrapper'),
+  window.ReleasesView = Backbone.View.extend({
+    el: $('#releases'),
 
     initialize: function() {
       _.bindAll(this, 'addRelease');
+      app.mainReleaseCollection = new ReleaseCollection();
     },
 
     addRelease: function() {
-      var release      = new Release()
+      var release      = app.mainReleaseCollection.create({})
       ,   releaseView  = new ReleaseView({model: release})
       ,   element      = $(releaseView.render().el)
       ;
 
-      app.releaseList.add(release);
-      $('#releases').append(element);
+      $(this.el).append(element);
       releaseView.input.focus();
 
       this.positionReleases();
     },
 
     positionReleases: function() {
-      var $releases     = $(' #releases .release')
+      var $releases     = $(this.el).find('.release')
       ,   releaseCount  = $releases.length
       ,   width         = $releases.first().outerWidth(true)
       ;
 
       $releases.each(function(i, release) {
         var left = (i == 0 ? '0' : (width * i) + 'px');
-
         $(release).animate({ left: left }, 300, 'easeInOutExpo');
       });
     }
   });
-  app.masterView  = new AppView();
 
-  $('#add_release').click(app.masterView.addRelease);
+  app.mainReleasesView  = new ReleasesView();
+
+  $('#add_release').click(app.mainReleasesView.addRelease);
 });
