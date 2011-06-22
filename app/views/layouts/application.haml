@@ -1,0 +1,30 @@
+!!! 5
+%html
+%head
+  %title Cascade
+  = stylesheet_link_tag    'application'
+  = javascript_include_tag 'application'
+  = csrf_meta_tags
+
+%body
+  = yield
+  #wrapper
+    #add_release +
+
+    #icebox
+      .features
+        .feature(draggable='true')
+          This is where the feature name goes
+          .delete_feature
+      .footer Add Feature
+
+    #releases
+
+  %script#release_template(type='text/template')
+    %input.title(type='text' value=name)
+    .features
+    .footer Add Feature
+
+  %script#feature_template(type='text/template')
+    %textarea= name
+    .delete_feature
